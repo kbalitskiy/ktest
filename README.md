@@ -1,8 +1,13 @@
 # Webex in container
 ## Preparation
+## For Alsa sound
 Configure asound.conf for your sound card
-All available sound card u can view $>aplay -L
-### Default set at Logitech USB Headset ;)
+All available sound card u can view by typing aplay -L
+## For Pulse Audio
+Edit run_pulse.sh and check if PULSE_PATH is OK.
 
 ## Usage
-Start run.sh and enjoy webex meeting ;)
+./run.sh if you use Alsa sound system
+./run_pulse.sh for Pulse Audio
+
+Enjoy webex meeting ;)

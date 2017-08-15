@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 DOCKERIMG=${DOCKERIMG:-dsvetlyakov/webex}
+PULSE_PATH=`netstat -xnlp 2>/dev/null| grep \`ps aux| grep pulseaudio | grep -v grep | awk '{print $2;}'\` | grep user | awk '{print $10;}'`
+
+echo $PULSE_PATH
 
 xhost +local:webex-$(id -un)
 
@@ -12,6 +15,6 @@ docker run --rm \
         -e DISPLAY=$DISPLAY \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
 	--device /dev/snd \
-	-e PULSE_SERVER=unix:/run/user/1000/pulse/native \
-	-v /run/user/1000/pulse/native:/run/user/1000/pulse/native \
+	-e PULSE_SERVER=unix:$PULSE_PATH \
+	-v $PULSE_PATH:$PULSE_PATH \
         dsvetlyakov/webex $*
